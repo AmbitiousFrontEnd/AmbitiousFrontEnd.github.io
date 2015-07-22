@@ -1,0 +1,93 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+@font-face {
+    font-family: moboli;
+    src: url('../font/mvboli.TTF');
+}
+@keyframes turn{
+         0% {
+        transform: rotateZ(0deg);
+    }
+    100% {
+        transform: rotateZ(180deg);
+    }
+}
+.introduce {
+    height: 60%;
+    width: 100%;
+    min-width: 1200px;
+    font-family: "隶书";
+    font-size: 2em;
+    text-align: center;  
+}
+.introduce p {
+    margin-top: 20px;
+}
+.team {
+    height: 60%;
+    width: 100%;
+    min-width: 1200px;
+    font-family: "moboli";
+    text-align: center;
+    display: none
+}
+.team h1 {
+    font-size: 4em;
+}
+.team p {
+    font-size: 2em;
+    margin-top: 30px;
+}
+.members {
+    position: absolute;
+    top: -74px;
+    left: 50%;
+    margin-left: -330px;
+    width: 660px;
+}
+.members img {
+    margin-left: 50px;
+}
+.person {
+    position: relative;
+    height: 40%;
+    width: 100%;
+    min-width: 1200px;
+    text-align: center;
+    font-family: 'moboli';
+    font-size: 2em;
+    /*color: #57BEA9;*/
+}
+ .person p, .person h1 {
+    position: absolute;
+    bottom: 15px;
+    width: 100%;
+} 
+.person h1 {
+    top: 90px;
+    color: #FFF;
+}
+.tjs, .hwx, .wp{
+    animation-name: turn;
+    animation-duration: 1s;
+    animation-timing-function: ease-in;
+    animation-iteration-count: 1;
+}
+/*use in js*/
+
+.white {
+    background-color: #FFF;
+    color: #57BEA9;
+}
+.color {
+    background-color: #57BEA9;
+    color: #FFF;
+}
+.none {
+    display: none;
+}
+.block {
+    display: block;
+}
