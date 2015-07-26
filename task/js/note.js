@@ -119,8 +119,13 @@ var note = {
         var that = this;
         var view = document.getElementById('preview');
         EventUtil.addHandler(view, 'click', function() {
-            concise.removeClass(concise.$('#view'), 'none');
-            concise.addClass(concise.$('#view'), 'block');
+            if(concise.hasClass(concise.$('#view'), 'none')) {
+                concise.removeClass(concise.$('#view'), 'none');
+                concise.addClass(concise.$('#view'), 'block');
+            } else {
+                concise.removeClass(concise.$('#view'), 'block');
+                concise.addClass(concise.$('#view'), 'none');
+            }
             that.highLightCode();
         });
         EventUtil.addHandler(concise.$('#textarea'), 'keyup', function() {
