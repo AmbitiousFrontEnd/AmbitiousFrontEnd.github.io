@@ -3,14 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <title>note</title>
-    <link rel="stylesheet" type="text/css" href="css/note.css">
+    <link rel="stylesheet" type="text/css" href="./css/note.css">
+    <link rel="stylesheet" href="./css/style.css">
 </head>
 <body id="body">
     <div id="left" class="left">
         <h1>笔记本</h1>
         <div id="classify" class="classify">
         </div>
-        <a id="addbutton" class="addbutton" href="javascript:void(0);">+</a>
+        <a id="addbutton" class="addbutton icon icon-plus" href="javascript:void(0);"></a>
+        <a id="deletebutton" class="addbutton icon icon-cross" href="javascript:void(0);"></a>
     </div>
     <div id="center" class="center">
         <div class="ctitle">
@@ -22,11 +24,18 @@
     </div>
     <div class="right">
         <div id="rtitle" class="rtitle">
-        <input id="title" type="text">
+            <input id="title" type="text">
+            <a href="javascript: void(0);" class="icon icon-enlarge"></a>
+            <a href="javascript: void(0);" class="icon icon-floppy-disk"></a>
         </div>
-        <div class="rtext">
-            <textarea name="textarea" id="textarea" class="textarea"></textarea>
+        <textarea name="textarea" id="textarea" class="textarea"></textarea>
+    </div>
+    <div class="right none">
+        <div class="rtitle color">
+            <h1><span>新建笔记新建笔记新建笔记新建笔记新建笔记新建笔记新建笔记新建笔记</span><a href="javascript:void(0);" class="icon icon-pencil"></a></h1>
+
         </div>
+        <div id="rtext" class="rtext"></div>
     </div>
     <div id="addnote" class="addnote">
             <h2>添加笔记分类</h2>

@@ -24,9 +24,9 @@ var data = {
             if (folder != '') {
                 note.showClassify(folder);
                 that.noteData[folder] = {};
-                that.noteData[folder]['note1'] = {};
-                that.noteData[folder]['note1'].atitle = '';
-                that.noteData[folder]['note1'].acontent = '';
+                // that.noteData[folder]['note1'] = {};
+                // that.noteData[folder]['note1'].atitle = '';
+                // that.noteData[folder]['note1'].acontent = '';
                 var str = JSON.stringify(that.noteData);
                 that.setData(str);
             }

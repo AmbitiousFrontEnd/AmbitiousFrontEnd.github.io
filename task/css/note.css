@@ -24,25 +24,25 @@ a {
     font-family: '隶书';
 }
 .left h1 {
-    margin: 70px 0;
+    height: 150px;
+    line-height: 150px;
     text-align: center;
 }
 .left p {
     margin-top: 20px;
     margin-left: 30px;
 }
+.classify {
+   height: 400px;
+   overflow: auto;
+}
 .addbutton {
-    position: absolute;
+    display: inline-block;
     width: 50px;
     height: 50px;
-    border:2px solid #CCC;
-    border-radius: 50%;
-    bottom: 50px;
-    left: 50%;
-    margin-left: -25px;
-    font-size: 3.5em;
-    line-height: 50px;
+    font-size: 2em;
     text-align: center;
+    margin: 50px 20px 0 20px;
 }
 .center {
     height: 100%;
@@ -51,24 +51,27 @@ a {
     background-color: #FFF;
 }
 .ctitle {
-    height: 180px;
+    height: 150px;
     width: 95%;
     margin: 0 auto;
 }
 .ctitle h1 {
     float: left;
-    margin-top: 70px;
+    margin-top: 57px;
 }
 .ctitle a {
     float: right;
     height: 38px;
     width: 140px;
-    margin-top: 70px;
+    margin-top: 57px;
     line-height: 38px;
     text-align: center;
     color: white;
     background-color: #DA3610;
     border-radius: 5px;
+}
+.ctextlist {
+    overflow: auto;
 }
 .ctextlist p {
     height: 120px;
@@ -83,29 +86,55 @@ a {
     background-color: #FFF;
 }
 .rtitle {
-    height: 180px;
-    background-color: #DA3610;
-    line-height: 180px;
+    height: 150px;
+    line-height: 150px;
     color: white;
     font-size: 2em;
     text-align: center;
 }
+.rtitle h1 span {
+    display: inline-block;
+    width: 400px;
+    height: 100px;
+    overflow: hidden;
+}
+.rtitle h1 a{
+    font-size: 0.5em;
+    margin-left: 50px;
+}
+.icon:hover {
+    color: #FFF;
+}
+.color {
+    background-color: #DA3610;
+}
+.rtext {
+    width: 100%;
+    background-color: #FFF;
+}
 .rtitle input {
-    display: none;
+   /* display: none;*/
     outline: none;
     height: 60px;
-    width: 700px;
+    width: 500px;
     font-size: 1.5em;
     font-weight: bold;
     border: none;
     border-bottom: 1px solid #CCC;
 }
+.rtitle a {
+    margin-left: 30px;
+    color: rgba(218, 54, 16, 0.7);
+}
+.rtitle a:hover {
+    color: rgba(218, 54, 16, 1);
+}
 .textarea {
+    display: block;
     width: 95%;
     margin: 0 auto;
     outline: none;
     border: none;
-    display: none;
     resize: none;
     font-size: 20px;
 }

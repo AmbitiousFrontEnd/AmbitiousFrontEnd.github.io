@@ -1,6 +1,6 @@
 var note = {
     inInt: function() {
-        this.setBodySize();
+        this.setSize();
         this.addclassify();
         this.addnote();
     },
@@ -28,13 +28,13 @@ var note = {
         }
         return size;
     },
-    setBodySize: function() {
+    setSize: function() {
         setInterval(function() {
             var size = note.getViewSize();
-            document.getElementById('body').style.height = size.height + 'px';
-            document.getElementById('body').style.width = size.width + 'px';
-            document.getElementById('textarea').style.height = size.height - 185 + 'px';
-            // document.getElementById('textarea').style.width = size.width - 635 + 'px';
+            concise.$('#textarea').style.height = size.height - 153 + 'px';
+            concise.$('#rtext').style.height = size.height - 153 + 'px';
+            concise.$('#classify').style.height = size.height - 264 + 'px';
+            concise.$('#ctextlist').style.height = size.height - 150 + 'px';
         }, 300);
     },
     addclassify: function() {
