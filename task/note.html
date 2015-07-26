@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>note</title>
+    <link rel="stylesheet" type="text/css" href="css/note.css">
+</head>
+<body id="body">
+    <div id="left" class="left">
+        <h1>笔记本</h1>
+        <div id="classify" class="classify">
+        </div>
+        <a id="addbutton" class="addbutton" href="javascript:void(0);">+</a>
+    </div>
+    <div id="center" class="center">
+        <div class="ctitle">
+            <h1>笔记</h1>
+            <a id="create" href="javascript: void(0);">新建笔记</a>
+        </div>
+        <div id="ctextlist" class="ctextlist">
+        </div>
+    </div>
+    <div class="right">
+        <div id="rtitle" class="rtitle">
+        <input id="title" type="text">
+        </div>
+        <div class="rtext">
+            <textarea name="textarea" id="textarea" class="textarea"></textarea>
+        </div>
+    </div>
+    <div id="addnote" class="addnote">
+            <h2>添加笔记分类</h2>
+            <p><input id="lsls" type="text"></p>
+            <p class="button">
+            <a id="confirm" value="确定" href="javascript: void(0);">确定</a> 
+            <a id="cancel" value="取消" href="javascript: void(0);">取消</a> 
+            </p>
+    </div>
+    <script type="text/javascript" src="js/tool.js" ></script>
+    <script type="text/javascript" src="js/note.js"></script>
+    <script type="text/javascript" src="js/data.js"></script>
+</body>
+</html>
