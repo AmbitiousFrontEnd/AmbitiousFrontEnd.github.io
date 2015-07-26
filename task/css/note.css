@@ -108,8 +108,9 @@ a {
 .color {
     background-color: #DA3610;
 }
-.rtext {
-    width: 100%;
+.rt {
+    width: 95%;
+    margin: 0 auto;
     background-color: #FFF;
 }
 .rtitle input {
@@ -130,6 +131,7 @@ a {
     color: rgba(218, 54, 16, 1);
 }
 .textarea {
+    font-family: '宋体';
     display: block;
     width: 95%;
     margin: 0 auto;
@@ -167,6 +169,14 @@ a {
     background-color: #DA3610;
     line-height: 30px;
     color: #FFF;
+}
+.view {
+    position: fixed;
+    top: 0;
+    left: 10px;
+    bottom: 0;
+    width: 610px;
+    background-color: #DA3610;
 }
 
 

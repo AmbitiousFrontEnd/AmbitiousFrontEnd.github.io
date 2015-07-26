@@ -5,8 +5,10 @@
     <title>note</title>
     <link rel="stylesheet" type="text/css" href="./css/note.css">
     <link rel="stylesheet" href="./css/style.css">
+    <link rel="stylesheet" href="./css/md.css">
+    <link rel="stylesheet" href="./css/dark.css">
 </head>
-<body id="body">
+<body>
     <div id="left" class="left">
         <h1>笔记本</h1>
         <div id="classify" class="classify">
@@ -22,20 +24,20 @@
         <div id="ctextlist" class="ctextlist">
         </div>
     </div>
-    <div class="right">
+    <div class="right none" id="write">
         <div id="rtitle" class="rtitle">
             <input id="title" type="text">
-            <a href="javascript: void(0);" class="icon icon-enlarge"></a>
-            <a href="javascript: void(0);" class="icon icon-floppy-disk"></a>
+            <a href="javascript: void(0);" class="icon icon-enlarge" id="preview"></a>
+            <a href="javascript: void(0);" class="icon icon-floppy-disk" id="save"></a>
         </div>
         <textarea name="textarea" id="textarea" class="textarea"></textarea>
     </div>
-    <div class="right none">
+    <div class="right block" id="show">
         <div class="rtitle color">
-            <h1><span>新建笔记新建笔记新建笔记新建笔记新建笔记新建笔记新建笔记新建笔记</span><a href="javascript:void(0);" class="icon icon-pencil"></a></h1>
+            <h1><span id="ititle"></span><a href="javascript:void(0);" class="icon icon-pencil"></a></h1>
 
         </div>
-        <div id="rtext" class="rtext"></div>
+        <div id="rtext" class="rt mdown"></div>
     </div>
     <div id="addnote" class="addnote">
             <h2>添加笔记分类</h2>
@@ -45,6 +47,9 @@
             <a id="cancel" value="取消" href="javascript: void(0);">取消</a> 
             </p>
     </div>
+    <div id="view" class="view none"></div>
+    <script type="text/javascript" src="./js/marked.min.js"></script>
+    <script src="./js/highlight.pack.js"></script>
     <script type="text/javascript" src="js/tool.js" ></script>
     <script type="text/javascript" src="js/note.js"></script>
     <script type="text/javascript" src="js/data.js"></script>
