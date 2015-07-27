@@ -1,4 +1,5 @@
 var note = {
+    choosed: ['', ''],
     inInt: function() {
         this.setSize();
         this.addclassify();
@@ -6,15 +7,8 @@ var note = {
         this.saveNote();
         this.highLightCode();
         this.preview();
-    },
-    element: {
-        addbutton: document.getElementById('addbutton'),
-        classify: document.getElementById('classify'),
-        addnote: document.getElementById('addnote'),
-        left: document.getElementById('left'),
-        confirm: document.getElementById('confirm'),
-        cancel: document.getElementById('cancel'),
-        center: document.getElementById('center')
+
+        //this.chooseFolder();
     },
     getViewSize: function() {
         var size = {};
@@ -43,28 +37,28 @@ var note = {
     addclassify: function() {
         var that = this;
 
-        EventUtil.addHandler(note.element.addbutton, 'click', function() {
-            note.element.addnote.style.display = 'block';
+        EventUtil.addHandler(concise.$('#addbutton'), 'click', function() {
+            concise.$('#addnote').style.display = 'block';
         });
-        EventUtil.addHandler(note.element.confirm, 'click', function() {
-            var ele = document.getElementById('lsls');
-            var classifyValue = ele.value;
-            if (classifyValue != '') {
-                console.log(classifyValue);
-                note.element.addnote.style.display = 'none';
+        EventUtil.addHandler(concise.$('#confirm'), 'click', function() {
+            var ele = concise.$('#lsls');
+            if (ele.value != '') {
+                concise.$('#addnote').style.display = 'none';
             } else {
                 ele.style.border = '1px solid red';
                 ele.placeholder = '内容不能为空';
             }
         });
-        EventUtil.addHandler(note.element.cancel, 'click', function() {
-            note.element.addnote.style.display = 'none';
+        EventUtil.addHandler(concise.$('#cancel'), 'click', function() {
+            concise.$('#addnote').style.display = 'none';
         });
     },
     showtitle: function(noteName) {
-        var p = document.createElement('p');
-        p.innerHTML = noteName;
-        concise.$('#ctextlist').appendChild(p);
+        var text = '';
+        for(var i in noteName) {
+            text += '<p>' + i + '</p>';
+        }
+        concise.$('#ctextlist').innerHTML = text;
     },
     showcontent: function(content) {
         var p = document.createElement('p');
@@ -72,28 +66,27 @@ var note = {
         concise.$('#ctextlist').appendChild(p);
     },
     addnote: function() {
-        var create = document.getElementById('create');
-        EventUtil.addHandler(create, 'click', function() {
+        EventUtil.addHandler(concise.$('#create'), 'click', function() {
             concise.removeClass(concise.$('#write'), 'none');
             concise.addClass(concise.$('#write'), 'block');
             concise.removeClass(concise.$('#show'), 'block');
             concise.addClass(concise.$('#show'), 'none');
         });
     },
-    saveNote: function() {
+    saveNote: function(obj) {
         var that = this;
-        var save = document.getElementById('save');
-        EventUtil.addHandler(save, 'click', function(){
+        var save = concise.$('#save');
+        EventUtil.addHandler(save, 'click', function() {
             concise.removeClass(concise.$('#show'), 'none');
             concise.addClass(concise.$('#show'), 'block');
             concise.removeClass(concise.$('#write'), 'block');
             concise.addClass(concise.$('#write'), 'none');
-            var content = document.getElementById('textarea').value;
-            var right = document.getElementById('rtext');
+            var content = concise.$('#textarea').value;
+            var right = concise.$('#rtext');
             var hCon = marked(content);
             right.innerHTML = hCon;
             that.highLightCode();
-            if(concise.hasClass(concise.$('#view'), 'block')) {
+            if (concise.hasClass(concise.$('#view'), 'block')) {
                 concise.removeClass(concise.$('#view'), 'block');
                 concise.addClass(concise.$('#view'), 'none');
             }
@@ -101,17 +94,32 @@ var note = {
         });
     },
     showClassify: function(classify) {
-        var a = document.createElement('a');
-        var p = document.createElement('p');
-        a.href = 'javascript: void(0)';
-        a.name = classify;
-        a.innerHTML = classify;
-        p.appendChild(a);
-        note.element.classify.appendChild(p);
+        var text = '';
+        for (var i in classify) {
+            text += '<p><a href=\'javascript: void(0)\'>' + i + '</a></p>';
+        }
+        concise.$('#classify').innerHTML = text;
+    },
+    chooseFolder: function(obj) {
+        var that = this;
+        if (!this.isNullObj(obj)) {
+            that.choosed[0] = concise.$('#classify').children[0].children[0];
+            concise.addClass(that.choosed[0], 'bold');
+        }
+        EventUtil.addHandler(concise.$('#classify'), 'click', function(eve) {
+            eve = EventUtil.getEvent(eve);
+            var target = EventUtil.getTarget(eve);
+            if (target.tagName.toLowerCase() === 'a') {
+                concise.removeClass(that.choosed[0], 'bold');
+                that.choosed[0] = target;
+                concise.addClass(that.choosed[0], 'bold');
+                    that.showtitle(obj[that.choosed[0].innerHTML]);
+            }
+        });
     },
     highLightCode: function() {
-        var codeBlock =document.querySelectorAll('pre code');
-        for(var i = codeBlock.length-1;i>=0;i--){
+        var codeBlock = document.querySelectorAll('pre code');
+        for (var i = codeBlock.length - 1; i >= 0; i--) {
             hljs.highlightBlock(codeBlock[i].parentNode);
         }
     },
@@ -119,7 +127,7 @@ var note = {
         var that = this;
         var view = document.getElementById('preview');
         EventUtil.addHandler(view, 'click', function() {
-            if(concise.hasClass(concise.$('#view'), 'none')) {
+            if (concise.hasClass(concise.$('#view'), 'none')) {
                 concise.removeClass(concise.$('#view'), 'none');
                 concise.addClass(concise.$('#view'), 'block');
             } else {
@@ -129,15 +137,23 @@ var note = {
             that.highLightCode();
         });
         EventUtil.addHandler(concise.$('#textarea'), 'keyup', function() {
-            if(concise.hasClass(concise.$('#view'), 'block')) {
+            if (concise.hasClass(concise.$('#view'), 'block')) {
 
-                var content = document.getElementById('textarea').value;
-                var right = document.getElementById('view');
+                var content = concise.$('#textarea').value;
+                var right = concise.$('#view');
                 var hCon = marked(content);
                 right.innerHTML = hCon;
                 that.highLightCode();
             }
         });
+    },
+    isNullObj: function(obj) {
+        for (var i in obj) {
+            if (obj.hasOwnProperty(i)) {
+                return false;
+            }
+        }
+        return true;
     }
 };
 note.inInt();

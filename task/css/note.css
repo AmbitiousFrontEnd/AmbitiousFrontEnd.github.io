@@ -31,6 +31,15 @@ a {
 .left p {
     margin-top: 20px;
     margin-left: 30px;
+    font-size: 20px;
+}
+.left p a {
+    display: block;
+
+    width: 100%;
+}
+.left p a:hover {
+    color: #FFF;
 }
 .classify {
    height: 400px;
@@ -188,4 +197,8 @@ a {
 }
 .block {
     display: block;
+}
+.bold {
+    font-size: 30px;
+    color: #FFF;
 }
