@@ -79,10 +79,10 @@ a {
     background-color: #DA3610;
     border-radius: 5px;
 }
-.ctextlist {
+.cnotelist {
     overflow: auto;
 }
-.ctextlist p {
+.cnotelist p {
     height: 120px;
     width: 95%;
     margin: 0 auto 10px;
@@ -92,6 +92,7 @@ a {
 .right {
     height: 100%;
     margin-left: 630px;
+    min-width: 500px;
     background-color: #FFF;
 }
 .rtitle {
@@ -138,6 +139,13 @@ a {
 }
 .rtitle a:hover {
     color: rgba(218, 54, 16, 1);
+}
+.rtitle .icon-pencil {
+    margin-left: 30px;
+    color: rgba(255, 255, 255, 0.7);
+}
+.rtitle .icon-pencil:hover {
+    color: #FFF;
 }
 .textarea {
     font-family: '宋体';
@@ -201,4 +209,7 @@ a {
 .bold {
     font-size: 30px;
     color: #FFF;
+}
+.notebold {
+    font-size: 30px;
 }

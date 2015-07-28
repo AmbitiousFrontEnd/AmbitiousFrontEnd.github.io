@@ -1,10 +1,10 @@
 var data = {
     inInt: function() {
-        this.addFolders();
-        this.showData();
-       // this.choose();
-        this.deleteFolder();
-        this.addNote();
+        note.inInt();
+        this.showAll();
+        this.folder();
+        this.note();
+        this.changeContent();
     },
     setData: function(str) {
         str = JSON.stringify(str);
@@ -14,53 +14,84 @@ var data = {
         var str = JSON.parse(localStorage.getItem('storage')) || {};
         return str;
     },
-    addFolders: function() {
+    showAll: function() {
+        var allData = this.getData();
+        note.showFolder(allData);
+    },
+
+    // folder
+    folder: function() {
+        this.addFolder();
+        this.deleteFolder();
+        this.chooseFolder();
+    },
+    addFolder: function() {
         var that = this;
-        EventUtil.addHandler(concise.$('#confirm'), 'click', function(eve) {
-            var folder = concise.$('#lsls').value;
-            if (folder != '') {
-                var noteData = that.getData();
-                noteData[folder] = {};
-                that.setData(noteData);
-                that.showData();
-                that.choose();
-            }
-            concise.$('#lsls').value = '';
+        EventUtil.addHandler(concise.$('#confirm'), 'click', function() {
+            note.addFolder();
+            var allData = that.getData();
+            allData[note.choosedValue[0]] = {};
+            that.setData(allData);
+            note.showFolder(that.getData());
+            concise.$('#lsls').value = ''; 
         });
-    },
-    addNote: function() {
-        var that = this;
-        EventUtil.addHandler(concise.$('#save'), 'click', function() {
-            var noteData = that.getData();
-            var folder = note.choosed[0].innerHTML;
-            var title = concise.$('#title').value;
-            var content = concise.$('#textarea').value;
-            noteData[folder][title] = {};
-            noteData[folder][title].title = title;
-            noteData[folder][title].content = content;
-            that.setData(noteData);
-            that.showData();
-        });
-    },
-    showData: function() {
-        var noteData = this.getData();
-        note.showClassify(noteData);
-        this.choose();
-        note.showtitle(noteData[note.choosed[0].innerHTML]);
-    },
-    choose: function() {
-        var obj = this.getData();
-        note.chooseFolder(obj);
     },
     deleteFolder: function() {
         var that = this;
         EventUtil.addHandler(concise.$('#deletebutton'), 'click', function() {
-            var noteData = that.getData();
-            delete noteData[note.choosed[0].innerHTML];
-            that.setData(noteData);
-            that.showData();
-            that.choose();
-        })
+            var allData = that.getData();
+            delete allData[note.choosed[0].innerHTML];
+            that.setData(allData);
+            note.showFolder(that.getData());
+        });
+    },
+    chooseFolder: function() {
+        var that = this;
+        EventUtil.addHandler(concise.$('#classify'), 'click', function(eve) {
+            eve = EventUtil.getEvent(eve);
+            var target = EventUtil.getTarget(eve);
+            note.chooseFolder(target);
+            note.showNote(that.getData());
+        });
+    },
+
+    // note
+    note: function() {
+        this.addNote();
+        // this.deleteNote();
+        this.chooseNote();
+    },
+    addNote: function() {
+        var that = this;
+        EventUtil.addHandler(concise.$('#save'), 'click', function() {
+            note.addNote();
+            var allData = that.getData();
+            var folder = note.choosed[0].innerHTML;
+            var title = concise.$('#title').value;
+            var content = concise.$('#textarea').value;
+            allData[folder][title] = {};
+            allData[folder][title].title = title;
+            allData[folder][title].content = content;
+            that.setData(allData);
+            note.showNote(that.getData());
+        });
+    },
+    chooseNote: function() {
+        var that = this;
+        EventUtil.addHandler(concise.$('#cnotelist'), 'click', function(eve) {
+            eve = EventUtil.getEvent(eve);
+            var target = EventUtil.getTarget(eve);
+            note.chooseNote(target);
+            note.showContent(that.getData()[note.choosedValue[0]][note.choosedValue[1]]);
+        });
+    },
+    // deleteNote: function(){}
+
+    changeContent: function() {
+        var that = this;
+        EventUtil.addHandler(concise.$('#change'), 'click', function() {
+            note.changeContent(that.getData()[note.choosedValue[0]][note.choosedValue[1]])
+        });
     }
 };
 data.inInt();
