@@ -131,8 +131,9 @@ var note = {
             this.choosed[1] = concise.$('#cnotelist').children[0];
             this.choosedValue[1] = this.choosed[1].innerHTML;
             concise.addClass(that.choosed[1], 'notebold');
+            this.showContent(noteName[this.choosedValue[0]][this.choosedValue[1]]);
         }
-        this.showContent(noteName[this.choosedValue[0]][this.choosedValue[1]]);
+        
     },
 
 
