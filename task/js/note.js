@@ -15,6 +15,13 @@ var note = {
         }
         return true;
     },
+    getCount: function(obj) {
+        var count = 0;
+        for (var i in obj) {
+            count++;
+        }
+        return count;
+    },
     getViewSize: function() {
         var size = {};
         size.height = window.innerHeight;
@@ -63,12 +70,13 @@ var note = {
         var that = this;
         var text = '';
         for (var i in folder) {
-            text += '<p><a href=\'javascript: void(0)\'>' + i + '</a></p>';
+            var j = this.getCount(folder[i]);
+            text += '<p><a href=\'javascript: void(0)\'' + ' name =\'' + i + '\' >' + i + '(' + j + ')' + '</a></p>';
         }
         concise.$('#classify').innerHTML = text;
         if (!this.isNullObj(folder)) { /** show default folder **/
             this.choosed[0] = concise.$('#classify').children[0].children[0];
-            this.choosedValue[0] = this.choosed[0].innerHTML;
+            this.choosedValue[0] = this.choosed[0].name;
             concise.addClass(that.choosed[0], 'bold');
         }
         this.showNote(folder);
@@ -78,13 +86,14 @@ var note = {
         if (target.tagName.toLowerCase() === 'a') {
             concise.removeClass(that.choosed[0], 'bold');
             this.choosed[0] = target;
-            this.choosedValue[0] = target.innerHTML;
+            this.choosedValue[0] = target.name;
             concise.addClass(that.choosed[0], 'bold');
         }
     },
 
     // note
     noteEvent: function() {
+        var that = this;
         EventUtil.addHandler(concise.$('#create'), 'click', function() {
             concise.removeClass(concise.$('#write'), 'none');
             concise.addClass(concise.$('#write'), 'block');
@@ -94,6 +103,25 @@ var note = {
             concise.$('#textarea').value = '';
         });
         // 右键显示
+        EventUtil.addHandler(concise.$('#cnotelist'), 'mouseup', function(event) {
+            event = EventUtil.getEvent(event);
+            var target = EventUtil.getTarget(event);
+
+            if (target.tagName.toLowerCase() === 'p' && target.innerHTML === that.choosedValue[1]) {
+                EventUtil.preventDefault(event);
+                if (event.button === 2) {
+                    document.oncontextmenu = function() {
+                        return false;
+                    };
+                    concise.addClass(concise.$('#delenote'), 'block');
+                    concise.$('#delenote').style.left = event.clientX + 'px';
+                    concise.$('#delenote').style.top = event.clientY + 'px';
+                }
+            }
+        });
+        EventUtil.addHandler(document.body, 'click', function() {
+            that.deleteNote();
+        });
     },
     addNote: function() {
         concise.removeClass(concise.$('#show'), 'none');
@@ -124,7 +152,7 @@ var note = {
         var that = this;
         var text = '';
         for (var i in noteName[this.choosedValue[0]]) {
-            text += '<p>' + i + '</p>';
+            text += '<p name=\'' + i + '\'>' + i + '</p>';
         }
         concise.$('#cnotelist').innerHTML = text;
         if (!this.isNullObj(noteName[that.choosedValue[0]])) {
@@ -133,19 +161,23 @@ var note = {
             concise.addClass(that.choosed[1], 'notebold');
             this.showContent(noteName[this.choosedValue[0]][this.choosedValue[1]]);
         }
-        
-    },
+        else {
+            var obj = {};
+            obj.title = 'AFE笔记本';
+            obj.content = '';
+            this.showContent(obj);
+        }
 
+    },
+    deleteNote: function() {
+        concise.removeClass(concise.$('#delenote'), 'block');
+        concise.addClass(concise.$('#delenote'), 'none');
+    },
 
     // content
     showContent: function(content) {
-        if (this.isNullObj(content)) {
-            concise.$('#ititle').innerHTML = '';
-            concise.$('#rtext').innerHTML = '';
-        } else {
             concise.$('#ititle').innerHTML = content.title;
             concise.$('#rtext').innerHTML = content.content;
-        }
     },
     changeContent: function(content) {
         concise.$('#title').value = content.title;

@@ -33,14 +33,14 @@ var data = {
             allData[note.choosedValue[0]] = {};
             that.setData(allData);
             note.showFolder(that.getData());
-            concise.$('#lsls').value = ''; 
+            concise.$('#lsls').value = '';
         });
     },
     deleteFolder: function() {
         var that = this;
         EventUtil.addHandler(concise.$('#deletebutton'), 'click', function() {
             var allData = that.getData();
-            delete allData[note.choosed[0].innerHTML];
+            delete allData[note.choosed[0].name];
             that.setData(allData);
             note.showFolder(that.getData());
         });
@@ -58,7 +58,7 @@ var data = {
     // note
     note: function() {
         this.addNote();
-        // this.deleteNote();
+        this.deleteNote();
         this.chooseNote();
     },
     addNote: function() {
@@ -66,14 +66,14 @@ var data = {
         EventUtil.addHandler(concise.$('#save'), 'click', function() {
             note.addNote();
             var allData = that.getData();
-            var folder = note.choosed[0].innerHTML;
+            var folder = note.choosed[0].name;
             var title = concise.$('#title').value;
             var content = concise.$('#textarea').value;
             allData[folder][title] = {};
             allData[folder][title].title = title;
             allData[folder][title].content = content;
             that.setData(allData);
-            note.showNote(that.getData());
+            note.showFolder(that.getData());
         });
     },
     chooseNote: function() {
@@ -85,8 +85,16 @@ var data = {
             note.showContent(that.getData()[note.choosedValue[0]][note.choosedValue[1]]);
         });
     },
-    // deleteNote: function(){}
-
+    deleteNote: function() {
+        var that = this;
+        EventUtil.addHandler(concise.$('#delenote'), 'click', function() {
+            var allData = that.getData();
+            delete allData[note.choosed[0].name][note.choosedValue[1]];
+            that.setData(allData);
+            note.deleteNote();
+            note.showFolder(that.getData());
+        });
+    },
     changeContent: function() {
         var that = this;
         EventUtil.addHandler(concise.$('#change'), 'click', function() {
