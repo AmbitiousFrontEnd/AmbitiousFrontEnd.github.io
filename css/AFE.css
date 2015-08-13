@@ -69,7 +69,7 @@
     top: 90px;
     color: #FFF;
 }
-.tjs, .hwx, .wp{
+.tjs:hover, .hwx:hover, .wp:hover{
     animation-name: turn;
     animation-duration: 1s;
     animation-timing-function: ease-in;
