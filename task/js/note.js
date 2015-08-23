@@ -67,19 +67,28 @@ var note = {
         }
     },
     showFolder: function(folder) {
-        var that = this;
-        var text = '';
-        for (var i in folder) {
-            var j = this.getCount(folder[i]);
-            text += '<p><a href=\'javascript: void(0)\'' + ' name =\'' + i + '\' >' + i + '(' + j + ')' + '</a></p>';
-        }
-        concise.$('#classify').innerHTML = text;
-        if (!this.isNullObj(folder)) { /** show default folder **/
-            this.choosed[0] = concise.$('#classify').children[0].children[0];
-            this.choosedValue[0] = this.choosed[0].name;
+        if (!this.isNullObj(folder)) {
+            var that = this;
+            var text = '';
+            for (var i in folder) {
+                var j = this.getCount(folder[i]);
+                text += '<p><a href=\'javascript: void(0)\'' + ' name =\'' + i + '\' >' + i + '(' + j + ')' + '</a></p>';
+            }
+            concise.$('#classify').innerHTML = text;
+            if (this.choosed[0] === '') { /** show default folder **/
+                this.choosed[0] = concise.$('#classify').children[0].children[0];
+                this.choosedValue[0] = this.choosed[0].name;
+            } else {
+                for (i = 0; i < concise.$('#classify').children.length; i++) {
+                    if (concise.$('#classify').children[i].children[0].name === this.choosedValue[0]) {
+                        this.choosed[0] = concise.$('#classify').children[i].children[0];
+                    }
+                }
+            }
+
             concise.addClass(that.choosed[0], 'bold');
+            this.showNote(folder);
         }
-        this.showNote(folder);
     },
     chooseFolder: function(target) {
         var that = this;
@@ -88,6 +97,7 @@ var note = {
             this.choosed[0] = target;
             this.choosedValue[0] = target.name;
             concise.addClass(that.choosed[0], 'bold');
+            this.choosed[1] = '';
         }
     },
 
@@ -138,6 +148,7 @@ var note = {
             concise.addClass(concise.$('#view'), 'none');
         }
         concise.$('#ititle').innerHTML = concise.$('#title').value;
+        this.choosedValue[1] = concise.$('#title').value;
     },
     chooseNote: function(target) {
         var that = this;
@@ -149,19 +160,31 @@ var note = {
         }
     },
     showNote: function(noteName) {
-        var that = this;
-        var text = '';
-        for (var i in noteName[this.choosedValue[0]]) {
-            text += '<p name=\'' + i + '\'>' + i + '</p>';
-        }
-        concise.$('#cnotelist').innerHTML = text;
-        if (!this.isNullObj(noteName[that.choosedValue[0]])) {
-            this.choosed[1] = concise.$('#cnotelist').children[0];
-            this.choosedValue[1] = this.choosed[1].innerHTML;
-            concise.addClass(that.choosed[1], 'notebold');
+        console.log(!this.isNullObj(noteName[this.choosedValue[0]]));
+        if (!this.isNullObj(noteName[this.choosedValue[0]])) {
+            var that = this;
+            var text = '';
+            for (var i in noteName[this.choosedValue[0]]) {
+                text += '<p name=\'' + i + '\'>' + i + '</p>';
+            }
+            concise.$('#cnotelist').innerHTML = text;
+            if(this.choosed[1] === '') {
+                this.choosed[1] = concise.$('#cnotelist').children[0];
+                this.choosedValue[1] = this.choosed[1].innerHTML;
+            }
+            else {
+                for(var j = 0; j < concise.$('#cnotelist').children.length; j++) {
+                    if(concise.$('#cnotelist').children[j].getAttribute('name') === this.choosedValue[1]) {
+                        this.choosed[1] = concise.$('#cnotelist').children[j];
+                    }
+                    
+                }
+            }
+            this.chooseNote(this.choosed[1]);
+            console.log(this.choosedValue[1]);
             this.showContent(noteName[this.choosedValue[0]][this.choosedValue[1]]);
-        }
-        else {
+        } else {
+            concise.$('#cnotelist').innerHTML = '';
             var obj = {};
             obj.title = 'AFE笔记本';
             obj.content = '';
