@@ -160,7 +160,6 @@ var note = {
         }
     },
     showNote: function(noteName) {
-        console.log(!this.isNullObj(noteName[this.choosedValue[0]]));
         if (!this.isNullObj(noteName[this.choosedValue[0]])) {
             var that = this;
             var text = '';
@@ -181,14 +180,10 @@ var note = {
                 }
             }
             this.chooseNote(this.choosed[1]);
-            console.log(this.choosedValue[1]);
             this.showContent(noteName[this.choosedValue[0]][this.choosedValue[1]]);
         } else {
             concise.$('#cnotelist').innerHTML = '';
-            var obj = {};
-            obj.title = 'AFE笔记本';
-            obj.content = '';
-            this.showContent(obj);
+            this.showContent({});
         }
 
     },
@@ -199,6 +194,11 @@ var note = {
 
     // content
     showContent: function(content) {
+        if(this.isNullObj(content)) {
+            content = {};
+            content.title = 'AFE笔记本';
+            content.content = '';
+        }
             concise.$('#ititle').innerHTML = content.title;
             concise.$('#rtext').innerHTML = content.content;
     },

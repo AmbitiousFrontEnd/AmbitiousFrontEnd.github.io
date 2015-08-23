@@ -91,6 +91,7 @@ var data = {
         EventUtil.addHandler(concise.$('#delenote'), 'click', function() {
             var allData = that.getData();
             delete allData[note.choosed[0].name][note.choosedValue[1]];
+            note.choosed[1] = '';
             that.setData(allData);
             note.deleteNote();
             note.showFolder(that.getData());
